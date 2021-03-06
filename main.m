@@ -5,7 +5,7 @@ a = 1; %Lower & upper bound
 b = 2;
 y1 = 1/2; %Boundary values
 y2 = log(2);
-n = [5, 10, 20, 40, 80, 160]; %Values of n that we solve for
+n = linspace(3,40,38); %Values of n that we solve for
 
 y_ex_f = @(x) (4./x - 2./(x.^2) + log(x) -3/2); %Exact solution
 
@@ -22,7 +22,6 @@ for i = 1:length(n)
     %Forward, backward (Lc=rhs, UyVals=c)
     c = forwardsub(L, rhs);
     y_aprVals(2:n(i)) = backsub(U,c);
-    y_aprVals(2:n(i)) = A\rhs;
     e(i) = norm(y_exVals - y_aprVals, Inf);
     plot(xVals, y_aprVals)
     hold on
@@ -35,7 +34,7 @@ x100 = linspace(a,b);
 plot(x100, y_ex_f(x100), "Linewidth", 1.5) %Add the real function to the plot
 xlabel("x");
 ylabel("y");
-legend("n= ","n= ","n= ", "exact solution", "location", "southeast")
+legend("n= 3","n= 5","n= 10", "exact solution", "location", "southeast")
 
 plot(1./n.^2,e)
 xlabel("1/n^2");
